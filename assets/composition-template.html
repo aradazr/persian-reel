@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fa" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family:"Peyda"; src:url("assets/fonts/Peyda-400.woff2") format("woff2"); font-weight:400; font-display:block; }
+      @font-face { font-family:"Peyda"; src:url("assets/fonts/Peyda-700.woff2") format("woff2"); font-weight:700; font-display:block; }
+      @font-face { font-family:"Peyda"; src:url("assets/fonts/Peyda-900.woff2") format("woff2"); font-weight:900; font-display:block; }
+      :root {
+        --cream:#F7EEE7; --ink:#20242F;
+        --accent:#E07B53;        /* fills and shapes only */
+        --accent-deep:#B7502A;   /* anything with text — the light accent fails contrast */
+        --pill:#3C4454; --muted:#8A8073; --line:#E4D8CD;
+      }
+      * { margin:0; padding:0; box-sizing:border-box; }
+      html, body { width:1080px; height:1920px; overflow:hidden; background:var(--cream); }
+      body { font-family:"Peyda", sans-serif; }
+      /* RTL is scoped to elements — dir="rtl" on <html> renders a black video */
+      .scene, .cap, h1, h2 { direction:rtl; unicode-bidi:isolate; }
+
+      #speaker { position:absolute; left:0; top:920px; width:1080px; height:1000px;
+                 object-fit:cover; object-position:50% 28%; }  /* tune per clip */
+      #panel   { position:absolute; left:0; top:0; width:1080px; height:920px;
+                 background:var(--cream); overflow:hidden; }
+      .scene   { position:absolute; inset:0; }
+      .ctr     { position:absolute; left:0; right:0; margin-inline:auto; width:fit-content; }
+      h1 { font-size:72px; font-weight:900; color:var(--ink);
+           letter-spacing:0; word-spacing:0.12em; line-height:1.35; text-align:center; }
+      h2 { font-size:40px; font-weight:700; color:var(--muted); text-align:center; }
+
+      .cap { position:absolute; left:50%; top:886px; transform:translateX(-50%);
+             background:var(--pill); color:#fff; font-weight:700; font-size:44px;
+             word-spacing:0.08em; padding:16px 34px; border-radius:18px;
+             white-space:nowrap; box-shadow:0 12px 34px rgba(0,0,0,.28); }
+      .cap b { color:#F09A72; font-weight:900; }
+      .ink { stroke-dasharray:1; stroke-dashoffset:1; }   /* draw-on, needs pathLength="1" */
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="DURATION"
+         data-width="1080" data-height="1920">
+
+      <video id="speaker" class="clip" src="assets/video/talk_cut.mp4"
+             data-start="0" data-duration="DURATION" data-track-index="0" muted playsinline></video>
+      <audio id="speaker-audio" class="clip" src="assets/video/talk_cut.mp4"
+             data-start="0" data-duration="DURATION" data-track-index="4" data-volume="1"></audio>
+
+      <div id="panel" class="clip" data-start="0" data-duration="DURATION" data-track-index="1">
+        <div id="scene1" class="scene clip" data-start="0" data-duration="3.4" data-track-index="2">
+          <div id="s1-inner" style="position:absolute; inset:0;">
+            <div id="s1-icon" class="ctr" style="top:200px; width:200px; color:var(--accent-deep);"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" > <path pathLength="1" class="ink" d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path pathLength="1" class="ink" d="M20 2v4" /> <path pathLength="1" class="ink" d="M22 4h-4" /> <circle pathLength="1" class="ink" cx="4" cy="20" r="2" /> </svg></div>
+            <h1 id="s1-t" class="ctr" style="top:520px;">تیتر صحنه</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="cap clip" id="cap0" data-start="0.06" data-duration="1.9" data-track-index="3">اولین زیرنویس</div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      /* hard-kill each scene at its boundary so nothing bleeds a frame */
+      [["#s1-inner", 3.15, 3.40]].forEach(function (e) {
+        tl.to(e[0], { autoAlpha:0, duration:0.22, ease:"power2.in" }, e[1]);
+        tl.set(e[0], { autoAlpha:0 }, e[2]);
+      });
+
+      tl.to("#s1-icon .ink", { strokeDashoffset:0, duration:0.34, stagger:0.04, ease:"power1.inOut" }, 0.05);
+      tl.from("#s1-t", { y:36, opacity:0, duration:0.5, ease:"power3.out" }, 0.40);
+      tl.from("#cap0", { y:14, opacity:0, duration:0.20, ease:"power2.out" }, 0.06);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

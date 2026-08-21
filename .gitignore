@@ -1,0 +1,11 @@
+node_modules/
+__pycache__/
+*.pyc
+renders/
+.media/
+*.mp4
+*.mov
+*.wav
+*.m4a
+assets/brands/
+assets/fonts/
