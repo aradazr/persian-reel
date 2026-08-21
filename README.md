@@ -11,10 +11,7 @@
 
 <br>
 
-![License](https://img.shields.io/badge/license-MIT-E07B53?style=for-the-badge)
-![Claude Skill](https://img.shields.io/badge/Claude-Skill-B7502A?style=for-the-badge&logo=claude&logoColor=white)
-![Local](https://img.shields.io/badge/۱۰۰٪-لوکال-3C4454?style=for-the-badge)
-![Persian](https://img.shields.io/badge/RTL-فارسی-20242F?style=for-the-badge)
+<img src="docs/img/badges.png" alt="MIT · Claude Skill · ۱۰۰٪ لوکال · RTL فارسی" width="560">
 
 <br>
 
