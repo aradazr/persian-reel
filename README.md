@@ -1,154 +1,246 @@
 <div align="center">
 
-# persian-reel
+<img src="docs/img/hero.png" alt="persian-reel" width="100%">
 
-**ویدیوی سلفی خام گوشیت رو به یک ریلز آمادهٔ اینستاگرام تبدیل می‌کنه.**
+# 🎬 persian-reel
 
-یک اسکیل برای [کلاد](https://claude.ai) که فوتیج خام رو با پنل موشن‌گرافیک،
-زیرنویس فارسی سینک‌شده با گفتار، اسکچ‌های دست‌کشیده، ساند افکت و موزیک زمینه
-بسته‌بندی می‌کنه و به MP4 رندر می‌گیره.
+### ویدیوی سلفی خام گوشیت رو به یک ریلز آمادهٔ اینستاگرام تبدیل می‌کنه
 
-![خروجی persian-reel](docs/img/hero.png)
+یک اسکیل برای **[کلاد](https://claude.ai)** — پنل موشن‌گرافیک، زیرنویس فارسی سینک با گفتار،<br>
+اسکچ دست‌کشیده، ساند افکت و موزیک زمینه. همه لوکال، همه رایگان.
 
-<sub>ساخته‌شده با کیت اسکچ و آیکون خود اسکیل. گوینده به‌صورت نمادین نشون داده شده.</sub>
+<br>
+
+![License](https://img.shields.io/badge/license-MIT-E07B53?style=for-the-badge)
+![Claude Skill](https://img.shields.io/badge/Claude-Skill-B7502A?style=for-the-badge&logo=claude&logoColor=white)
+![Local](https://img.shields.io/badge/۱۰۰٪-لوکال-3C4454?style=for-the-badge)
+![Persian](https://img.shields.io/badge/RTL-فارسی-20242F?style=for-the-badge)
+
+<br>
 
 </div>
+
+> [!TIP]
+> یک فایل `.mov` از گوشیت به کلاد بده و بگو **«این ویدیو رو برام ادیت کن»** — بقیه‌ش خودکاره.
 
 ---
 
+## 🔄 مسیر کار
+
+```mermaid
+flowchart RL
+    A["📱 ویدیوی خام"] --> B["✂️ کات سکوت"]
+    B --> C["🎙️ ترنسکرایب<br/>Whisper large-v3"]
+    C --> D["📝 زیرنویس فارسی<br/>روی مکث‌ها"]
+    D --> E["🎨 پنل گرافیک<br/>هر ۳ تا ۵ ثانیه"]
+    E --> F["🔊 صدا<br/>افکت + موزیک"]
+    F --> G["🎞️ رندر MP4"]
+
+    style A fill:#F7EEE7,stroke:#8A8073,color:#20242F
+    style B fill:#FDF3EE,stroke:#E07B53,color:#20242F
+    style C fill:#FDF3EE,stroke:#E07B53,color:#20242F
+    style D fill:#FDF3EE,stroke:#E07B53,color:#20242F
+    style E fill:#FDF3EE,stroke:#E07B53,color:#20242F
+    style F fill:#FDF3EE,stroke:#E07B53,color:#20242F
+    style G fill:#E07B53,stroke:#B7502A,color:#ffffff
+```
+
 <div dir="rtl">
 
-## چیکار می‌کنه
+## ✨ چیکار می‌کنه
 
-یک فایل `.mov` از گوشیت به کلاد می‌دی، یک ریلز ۹:۱۶ تحویل می‌گیری:
-
-- **سکوت‌ها رو کات می‌کنه** — مکث‌ها کوتاه می‌شن و همهٔ نشانه‌های زمانی خودکار جابه‌جا می‌شن
-- **فارسی رو ترنسکرایب می‌کنه** با Whisper large-v3 و زیرنویس‌ها رو روی مکث‌های طبیعی می‌شکنه
-- **پنل گرافیکی می‌سازه** بالای کادر، که هر ۳ تا ۵ ثانیه عوض می‌شه
-- **اسکچ می‌کشه** به‌صورت SVG واقعی که خط‌به‌خط جلوی چشم کشیده می‌شه
-- **صدا می‌ذاره** — افکت روی ضرب‌های انیمیشن، موزیک زیر صدای گوینده
-- **رندر می‌گیره** فریم‌به‌فریم و قطعی، با [HyperFrames](https://github.com/heygen-com/hyperframes)
-
-همه‌چیز لوکال اجرا می‌شه. Whisper، ffmpeg، کیت اسکچ و بیش از ۵۴۰۰ آیکون هیچ حسابی
-نمی‌خوان. فقط کاتالوگ موزیک — که اختیاریه — به حساب کاربری نیاز داره.
-
-## نصب
-
-**در Claude Code** — داخل پوشهٔ اسکیل‌هات کلون کن:
+| | |
+|---|---|
+| ✂️ | **سکوت‌ها رو کات می‌کنه** — مکث‌ها کوتاه می‌شن و همهٔ نشانه‌های زمانی خودکار جابه‌جا می‌شن |
+| 🎙️ | **فارسی رو ترنسکرایب می‌کنه** با Whisper large-v3 و زیرنویس رو روی مکث طبیعی می‌شکنه |
+| 🎨 | **پنل گرافیکی می‌سازه** بالای کادر، که هر ۳ تا ۵ ثانیه عوض می‌شه |
+| 🖊️ | **اسکچ می‌کشه** به‌صورت SVG واقعی که خط‌به‌خط جلوی چشم کشیده می‌شه |
+| 🔊 | **صدا می‌ذاره** — افکت روی ضرب‌های انیمیشن، موزیک زیر صدای گوینده |
+| 🎞️ | **رندر می‌گیره** فریم‌به‌فریم و قطعی با [HyperFrames](https://github.com/heygen-com/hyperframes) |
 
 </div>
 
-<div dir="ltr">
+> [!NOTE]
+> همه‌چیز لوکال اجرا می‌شه. Whisper، ffmpeg، کیت اسکچ و بیش از **۵۴۰۰ آیکون** هیچ حسابی نمی‌خوان.
+> فقط کاتالوگ موزیک — که اختیاریه — به حساب کاربری نیاز داره.
+
+---
+
+## 🚀 نصب
+
+**در Claude Code:**
 
 ```bash
 git clone https://github.com/aradazr/persian-reel ~/.claude/skills/persian-reel
 ```
 
-</div>
+**در Claude Desktop یا claude.ai:** فایل بسته‌بندی‌شده رو از [Releases](../../releases) بگیر
+و در `Settings → Capabilities → Skills` آپلود کن.
+
+بعدش فقط عادی با کلاد حرف بزن. اسکیل روی هر درخواست ویدیوی کوتاه فارسی خودش فعال می‌شه —
+لازم نیست اسمش رو تایپ کنی.
+
+<details>
+<summary><b>📦 پیش‌نیازها</b></summary>
+
+<br>
 
 <div dir="rtl">
 
-**در Claude Desktop یا claude.ai** — فایل بسته‌بندی‌شده رو از
-[Releases](../../releases) بگیر و در Settings ← Capabilities ← Skills آپلود کن.
-
-بعدش فقط عادی با کلاد حرف بزن:
-
-> «این ویدیو رو برام ادیت کن»
-
-اسکیل روی هر درخواست ویدیوی کوتاه فارسی خودش فعال می‌شه؛ لازم نیست اسمش رو تایپ کنی.
-
-## پیش‌نیازها
-
 | | |
 |---|---|
-| Node 22+ و Python 3.10+ | اجرا |
-| `ffmpeg` و `ffprobe` | کار صدا و تصویر |
-| Google Chrome | HyperFrames از طریقش رندر می‌گیره |
-| `npm i lucide-static simple-icons` | ۲۰۰۰ آیکون + ۳۴۰۰ لوگوی برند، آفلاین |
-| یک فونت فارسی | پیدا، وزیرمتن، یا مال خودت — **داخل ریپو نیست**، پایین توضیح دادم |
+| 🟢 **Node 22+** و **Python 3.10+** | اجرا |
+| 🎞️ **`ffmpeg`** و **`ffprobe`** | کار صدا و تصویر |
+| 🌐 **Google Chrome** | HyperFrames از طریقش رندر می‌گیره |
+| 🎯 **`npm i lucide-static simple-icons`** | ۲۰۰۰ آیکون + ۳۴۰۰ لوگوی برند، آفلاین |
+| 🔤 **یک فونت فارسی** | پیدا، وزیرمتن، یا مال خودت — داخل ریپو نیست |
 
-با `npx hyperframes doctor` بررسی کن.
+</div>
 
-## چیدمان
+بررسی با:
 
-بوم ۱۰۸۰×۱۹۲۰، تقسیم‌شده طوری که هیچ نیمه‌ای اون یکی رو خفه نکنه:
+```bash
+npx hyperframes doctor
+```
 
-| ناحیه | هندسه |
-|---|---|
-| پنل گرافیک | `0,0 1080×920` — کرم `#F7EEE7` |
-| گوینده | `0,920 1080×1000` — `object-fit: cover` |
-| پیل زیرنویس | وسط‌چین در `top: 886` — روی درز دو نیمه می‌شینه |
+</details>
 
-پالت: مرکب `#20242F`، اکسنت `#E07B53` برای پرکردن، `#B7502A` برای هر چیزی که متن
-داره، پیل `#3C4454`.
+---
 
-## بازهٔ تمام‌قاب
+<div dir="rtl">
 
-![بازهٔ تمام‌قاب](docs/img/fullframe.png)
+## 📐 چیدمان
 
-برداشتن پنل و پر کردن کادر با گوینده، همون چیزیه که نمی‌ذاره ریلز حس «قالب آماده»
-بده. سه چیز باید با هم عوض بشن:
+بوم ۱۰۸۰×۱۹۲۰، تقسیم‌شده طوری که هیچ نیمه‌ای اون یکی رو خفه نکنه.
 
-**کات بزن، نه فید.** فید، پنل نیمه‌شفاف رو روی فوتیج متحرک می‌کشه و شبیه باگ می‌شه.
+| ناحیه | هندسه | رنگ |
+|---|---|---|
+| 🟡 پنل گرافیک | `0,0 1080×920` | `#F7EEE7` |
+| 🎥 گوینده | `0,920 1080×1000` | `object-fit: cover` |
+| 💬 پیل زیرنویس | وسط‌چین در `top: 886` | `#3C4454` |
 
-**حدود ۲ برابر zoom کن.** صورت از ۰.۱۶ ارتفاع قاب به ۰.۳۲ می‌ره. بدون این، گوینده
-فقط توی قاب خالی‌تری می‌شینه و اون لحظه حس «جای خالی» می‌ده نه تأکید.
+</div>
 
-**زیرنویس رو بیار پایین**، وگرنه می‌افته روی صورتش.
+<div align="center">
 
-## چی داخلشه
+`#F7EEE7` &nbsp;·&nbsp; `#20242F` &nbsp;·&nbsp; `#E07B53` &nbsp;·&nbsp; `#B7502A` &nbsp;·&nbsp; `#3C4454`
 
-| اسکریپت | کارش |
-|---|---|
-| `cutsilence.py` | مکث‌ها رو کوتاه می‌کنه و نگاشت زمانی می‌ده تا نشانه‌های موجود جابه‌جا شن |
-| `transcribe.py` | Whisper large-v3 ← تایم‌کد کلمه‌ای ← خطوط اندازهٔ زیرنویس |
-| `sketch.py` | SVG دست‌کشیدهٔ قطعی — لرزش seed-دار، هیچ‌وقت `Math.random()` |
-| `icon.py` | آیکون Lucide رو با ضخامت مناسب ویدیو inline می‌کنه |
-| `brand.py` | لوگوی رسمی برندها رو می‌گیره (simple-icons ← svgl) |
-| `audiolevel.py` | `data-volume` رو از سطح اندازه‌گیری‌شده حساب می‌کنه، بعد رندر رو تأیید می‌کنه |
-
-مستندات عمیق‌تر در `references/` — [کامپوزیشن](references/composition.md)،
-[گرافیک](references/graphics.md)، [صدا](references/audio.md).
-
-## چهار تلهٔ فارسی
-
-این‌ها وقت واقعی از آدم می‌گیرن و هیچ‌کدوم خودشون رو اعلام نمی‌کنن.
-
-**`<html dir="rtl">` ویدیو رو کاملاً سیاه رندر می‌کنه.** پریویو بی‌نقص به نظر می‌رسه.
-به‌جاش `direction: rtl` رو در CSS فقط روی المان‌های متنی بذار.
-
-**`letter-spacing` منفی فاصلهٔ بین کلمات فارسی رو می‌بنده.** تیتر لاتین تراکینگ تنگ
-رو تحمل می‌کنه، فارسی نه — چون در خط متصل، فاصله تنها مرز کلمه‌ست. از
-`letter-spacing: 0` با `word-spacing: 0.08–0.12em` استفاده کن.
-
-**صفر فارسی «۰» یک نقطه‌ست.** عدد ۳۰۰ پیکسلی به‌صورت یک ذره رندر می‌شه. عدد رو با
-حروف بنویس.
-
-**مدل `small` ویسپر فارسی رو خراب می‌کنه** — «می‌شنویم» رو «میشنبیم» شنید. از
-large-v3 استفاده کن و باز هم بازخوانی کن.
-
-## یک چیز دیگه
-
-**سطح صدا رو اندازه بگیر، حدس نزن.** یک بار ده تا نشانهٔ صوتی با ولوم‌های دستی گذاشته
-شد و ۹ تاشون کاملاً ناشنیدنی بودند — چون میانگین یک فایل ‎−۵ دسی‌بل بود و اون یکی
-‎−۳۰٫۷. یک عدد ولوم واحد نمی‌تونه به هر دو خدمت کنه. `audiolevel.py plan` برای هرکدوم
-حساب می‌کنه و `verify` ثابت می‌کنه که واقعاً شنیده می‌شه.
-
-## لایسنس
-
-کد MIT ـه. دو چیز عمداً داخل ریپو **نیست**:
-
-- **فونت.** پیدا تجاریه؛ لایسنس خودت رو بیار، یا از
-  [وزیرمتن](https://github.com/rastikerdar/vazirmatn) استفاده کن (SIL OFL).
-- **لوگوی برندها.** `brand.py` اون‌ها رو در لحظه می‌گیره به‌جای اینکه علامت تجاری
-  توزیع کنه. وقتی تطابق دقیق پیدا نکنه حدس نمی‌زنه — لوگوی اشتباهی که درست رندر
-  می‌شه، بدتر از لوگوی نبوده‌ست.
+<img src="https://img.shields.io/badge/-F7EEE7-F7EEE7?style=flat-square" >
+<img src="https://img.shields.io/badge/-20242F-20242F?style=flat-square" >
+<img src="https://img.shields.io/badge/-E07B53-E07B53?style=flat-square" >
+<img src="https://img.shields.io/badge/-B7502A-B7502A?style=flat-square" >
+<img src="https://img.shields.io/badge/-3C4454-3C4454?style=flat-square" >
 
 </div>
 
 ---
 
-## English
+## 🎬 بازهٔ تمام‌قاب
+
+<div align="center">
+<img src="docs/img/fullframe.png" alt="full-frame beat" width="72%">
+</div>
+
+<div dir="rtl">
+
+برداشتن پنل و پر کردن کادر با گوینده، همون چیزیه که نمی‌ذاره ریلز حس «قالب آماده» بده.
+سه چیز باید **با هم** عوض بشن:
+
+</div>
+
+> [!WARNING]
+> **کات بزن، نه فید.** فید، پنل نیمه‌شفاف رو روی فوتیج متحرک می‌کشه و شبیه باگ می‌شه.
+
+> [!IMPORTANT]
+> **حدود ۲ برابر zoom کن.** صورت از `۰.۱۶` ارتفاع قاب به `۰.۳۲` می‌ره. بدون این، گوینده
+> فقط توی قاب خالی‌تری می‌شینه و اون لحظه حس «جای خالی» می‌ده نه تأکید.
+
+> [!NOTE]
+> **زیرنویس رو بیار پایین**، وگرنه می‌افته روی صورتش.
+
+---
+
+<div dir="rtl">
+
+## 🧰 چی داخلشه
+
+| اسکریپت | کارش |
+|---|---|
+| ✂️ `cutsilence.py` | مکث‌ها رو کوتاه می‌کنه و نگاشت زمانی می‌ده تا نشانه‌های موجود جابه‌جا شن |
+| 🎙️ `transcribe.py` | Whisper large-v3 ← تایم‌کد کلمه‌ای ← خطوط اندازهٔ زیرنویس |
+| 🖊️ `sketch.py` | SVG دست‌کشیدهٔ قطعی — لرزش seed-دار، هیچ‌وقت `Math.random()` |
+| 🎯 `icon.py` | آیکون Lucide رو با ضخامت مناسب ویدیو inline می‌کنه |
+| 🏷️ `brand.py` | لوگوی رسمی برندها رو می‌گیره (simple-icons ← svgl) |
+| 🔊 `audiolevel.py` | `data-volume` رو از سطح اندازه‌گیری‌شده حساب می‌کنه، بعد رندر رو تأیید می‌کنه |
+
+مستندات عمیق‌تر: [کامپوزیشن](references/composition.md) · [گرافیک](references/graphics.md) · [صدا](references/audio.md)
+
+</div>
+
+---
+
+## 🪤 چهار تلهٔ فارسی
+
+<div dir="rtl">
+
+این‌ها وقت واقعی از آدم می‌گیرن و **هیچ‌کدوم خودشون رو اعلام نمی‌کنن**.
+
+</div>
+
+> [!CAUTION]
+> ### `<html dir="rtl">` ویدیو رو کاملاً سیاه رندر می‌کنه
+> پریویو بی‌نقص به نظر می‌رسه. به‌جاش `direction: rtl` رو در CSS فقط روی المان‌های متنی بذار.
+
+> [!WARNING]
+> ### `letter-spacing` منفی فاصلهٔ بین کلمات فارسی رو می‌بنده
+> تیتر لاتین تراکینگ تنگ رو تحمل می‌کنه، فارسی نه — چون در خط متصل، فاصله **تنها مرز کلمه‌ست**.
+
+```css
+/* ❌ */  letter-spacing: -1px;
+/* ✅ */  letter-spacing: 0;  word-spacing: 0.1em;
+```
+
+> [!WARNING]
+> ### صفر فارسی «۰» یک نقطه‌ست
+> عدد ۳۰۰ پیکسلی به‌صورت یک ذره رندر می‌شه. عدد رو با حروف بنویس.
+
+> [!WARNING]
+> ### مدل `small` ویسپر فارسی رو خراب می‌کنه
+> «می‌شنویم» رو **«میشنبیم»** شنید. از `large-v3` استفاده کن و باز هم بازخوانی کن.
+
+---
+
+## 🔊 یک چیز دیگه
+
+> [!IMPORTANT]
+> **سطح صدا رو اندازه بگیر، حدس نزن.** یک بار ده تا نشانهٔ صوتی با ولوم دستی گذاشته شد و
+> **۹ تاشون کاملاً ناشنیدنی بودند** — چون میانگین یک فایل `−۵dB` بود و اون یکی `−۳۰٫۷dB`.
+> یک عدد ولوم واحد نمی‌تونه به هر دو خدمت کنه.
+
+```bash
+python3 scripts/audiolevel.py plan   talk.mp4 assets/sfx/*.mp3   # → data-volume هرکدوم
+python3 scripts/audiolevel.py verify render.mp4 talk.mp4 --cues 3.5 4.2 12.0
+```
+
+---
+
+<div dir="rtl">
+
+## 📜 لایسنس
+
+کد **MIT** ـه. دو چیز عمداً داخل ریپو **نیست**:
+
+- 🔤 **فونت** — پیدا تجاریه؛ لایسنس خودت رو بیار، یا از [وزیرمتن](https://github.com/rastikerdar/vazirmatn) استفاده کن (SIL OFL)
+- 🏷️ **لوگوی برندها** — `brand.py` در لحظه می‌گیرتشون به‌جای توزیع علامت تجاری. وقتی تطابق دقیق پیدا نکنه **حدس نمی‌زنه**؛ لوگوی اشتباهی که درست رندر می‌شه، بدتر از لوگوی نبوده‌ست
+
+</div>
+
+---
+
+<details>
+<summary><b>🇬🇧 English</b></summary>
+
+<br>
 
 **Turn a phone talking-head clip into a finished Persian Instagram Reel — automatically.**
 
@@ -174,17 +266,23 @@ catalogue needs an account.
 to be unusable.
 
 Requirements, layout geometry, the full-frame beat technique, and the audio-levelling
-procedure are documented above in Persian, and in depth under
-[`references/`](references/) in English.
+procedure are documented in depth under [`references/`](references/) in English.
 
 Code is MIT. Fonts and brand logos are deliberately not bundled — Peyda is commercial, and
 `brand.py` fetches trademarks on demand rather than redistributing them.
 
+</details>
+
 ---
 
 <div align="center">
-ساخته‌شده روی <a href="https://github.com/heygen-com/hyperframes">HyperFrames</a> ·
+
+ساخته‌شده روی
+<a href="https://github.com/heygen-com/hyperframes">HyperFrames</a> ·
 <a href="https://github.com/lucide-icons/lucide">Lucide</a> ·
 <a href="https://github.com/simple-icons/simple-icons">simple-icons</a> ·
 <a href="https://github.com/ggerganov/whisper.cpp">whisper.cpp</a>
+
+<sub>اگر به کارت اومد، یک ⭐ بده</sub>
+
 </div>
