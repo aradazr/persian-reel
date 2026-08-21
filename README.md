@@ -2,164 +2,188 @@
 
 # persian-reel
 
-**Turn a phone talking-head clip into a finished Persian Instagram Reel — automatically.**
+**ویدیوی سلفی خام گوشیت رو به یک ریلز آمادهٔ اینستاگرام تبدیل می‌کنه.**
 
-A [Claude](https://claude.ai) skill that packages raw selfie footage with a motion-graphics
-panel, RTL captions synced to speech, hand-drawn ink sketches, sound effects and a music bed,
-then renders it deterministically to MP4.
+یک اسکیل برای [کلاد](https://claude.ai) که فوتیج خام رو با پنل موشن‌گرافیک،
+زیرنویس فارسی سینک‌شده با گفتار، اسکچ‌های دست‌کشیده، ساند افکت و موزیک زمینه
+بسته‌بندی می‌کنه و به MP4 رندر می‌گیره.
 
-![persian-reel output](docs/img/hero.png)
+![خروجی persian-reel](docs/img/hero.png)
 
-*Rendered by the skill's own sketch kit and icon pipeline. Speaker shown as a placeholder.*
+<sub>ساخته‌شده با کیت اسکچ و آیکون خود اسکیل. گوینده به‌صورت نمادین نشون داده شده.</sub>
 
 </div>
 
 ---
 
-## What it does
+<div dir="rtl">
 
-You hand Claude a `.mov` off your phone. It gives you back a finished 9:16 reel:
+## چیکار می‌کنه
 
-- **Cuts the dead air** — pauses shortened, every downstream cue re-timed automatically
-- **Transcribes Persian** with Whisper large-v3 and breaks captions on natural pauses
-- **Builds a graphic panel** above the speaker, changing every 3–5 seconds
-- **Draws sketches** as real SVG that animate on stroke by stroke
-- **Places sound** — effects on the animation beats, a music bed under the voice
-- **Renders** frame-accurately through [HyperFrames](https://github.com/heygen-com/hyperframes)
+یک فایل `.mov` از گوشیت به کلاد می‌دی، یک ریلز ۹:۱۶ تحویل می‌گیری:
 
-Everything runs locally. Whisper, ffmpeg, the sketch kit and 5,400+ icons need no account.
-Only the optional music catalogue does.
+- **سکوت‌ها رو کات می‌کنه** — مکث‌ها کوتاه می‌شن و همهٔ نشانه‌های زمانی خودکار جابه‌جا می‌شن
+- **فارسی رو ترنسکرایب می‌کنه** با Whisper large-v3 و زیرنویس‌ها رو روی مکث‌های طبیعی می‌شکنه
+- **پنل گرافیکی می‌سازه** بالای کادر، که هر ۳ تا ۵ ثانیه عوض می‌شه
+- **اسکچ می‌کشه** به‌صورت SVG واقعی که خط‌به‌خط جلوی چشم کشیده می‌شه
+- **صدا می‌ذاره** — افکت روی ضرب‌های انیمیشن، موزیک زیر صدای گوینده
+- **رندر می‌گیره** فریم‌به‌فریم و قطعی، با [HyperFrames](https://github.com/heygen-com/hyperframes)
 
-## Install
+همه‌چیز لوکال اجرا می‌شه. Whisper، ffmpeg، کیت اسکچ و بیش از ۵۴۰۰ آیکون هیچ حسابی
+نمی‌خوان. فقط کاتالوگ موزیک — که اختیاریه — به حساب کاربری نیاز داره.
 
-**Claude Code** — clone into your skills directory:
+## نصب
+
+**در Claude Code** — داخل پوشهٔ اسکیل‌هات کلون کن:
+
+</div>
+
+<div dir="ltr">
 
 ```bash
-git clone https://github.com/USER/persian-reel ~/.claude/skills/persian-reel
+git clone https://github.com/aradazr/persian-reel ~/.claude/skills/persian-reel
 ```
 
-**Claude Desktop / claude.ai** — download the packaged skill from
-[Releases](../../releases) and upload it in Settings → Capabilities → Skills.
+</div>
 
-Then just talk to Claude normally:
+<div dir="rtl">
 
-> «این ویدیو رو برام ادیت کن» — *edit this video for me*
+**در Claude Desktop یا claude.ai** — فایل بسته‌بندی‌شده رو از
+[Releases](../../releases) بگیر و در Settings ← Capabilities ← Skills آپلود کن.
 
-The skill triggers on any Persian short-form video request; you never type its name.
+بعدش فقط عادی با کلاد حرف بزن:
 
-## Requirements
+> «این ویدیو رو برام ادیت کن»
+
+اسکیل روی هر درخواست ویدیوی کوتاه فارسی خودش فعال می‌شه؛ لازم نیست اسمش رو تایپ کنی.
+
+## پیش‌نیازها
 
 | | |
 |---|---|
-| Node 22+, Python 3.10+ | runtime |
-| `ffmpeg` / `ffprobe` | audio and video work |
-| Google Chrome | HyperFrames renders through it |
-| `npm i lucide-static simple-icons` | 2,000 icons + 3,400 brand marks, offline |
-| a Persian font | Peyda, Vazirmatn, or your own — **not bundled**, see [Licensing](#licensing) |
+| Node 22+ و Python 3.10+ | اجرا |
+| `ffmpeg` و `ffprobe` | کار صدا و تصویر |
+| Google Chrome | HyperFrames از طریقش رندر می‌گیره |
+| `npm i lucide-static simple-icons` | ۲۰۰۰ آیکون + ۳۴۰۰ لوگوی برند، آفلاین |
+| یک فونت فارسی | پیدا، وزیرمتن، یا مال خودت — **داخل ریپو نیست**، پایین توضیح دادم |
 
-Verify with `npx hyperframes doctor`.
+با `npx hyperframes doctor` بررسی کن.
 
-## The layout
+## چیدمان
 
-A 1080×1920 canvas, split so neither half crowds the other:
+بوم ۱۰۸۰×۱۹۲۰، تقسیم‌شده طوری که هیچ نیمه‌ای اون یکی رو خفه نکنه:
 
-| Region | Geometry |
+| ناحیه | هندسه |
 |---|---|
-| Graphic panel | `0,0 1080×920` — cream `#F7EEE7` |
-| Speaker | `0,920 1080×1000` — `object-fit: cover` |
-| Caption pill | centred at `top: 886` — straddles the seam |
+| پنل گرافیک | `0,0 1080×920` — کرم `#F7EEE7` |
+| گوینده | `0,920 1080×1000` — `object-fit: cover` |
+| پیل زیرنویس | وسط‌چین در `top: 886` — روی درز دو نیمه می‌شینه |
 
-Palette: ink `#20242F`, accent `#E07B53` for fills, `#B7502A` for anything carrying
-text, pill `#3C4454`.
+پالت: مرکب `#20242F`، اکسنت `#E07B53` برای پرکردن، `#B7502A` برای هر چیزی که متن
+داره، پیل `#3C4454`.
 
-## The full-frame beat
+## بازهٔ تمام‌قاب
 
-![full-frame beat](docs/img/fullframe.png)
+![بازهٔ تمام‌قاب](docs/img/fullframe.png)
 
-Dropping the panel and letting the speaker fill the frame is what keeps a reel from
-reading as a template. Three things have to change together:
+برداشتن پنل و پر کردن کادر با گوینده، همون چیزیه که نمی‌ذاره ریلز حس «قالب آماده»
+بده. سه چیز باید با هم عوض بشن:
 
-**Cut, never fade.** A crossfade shows a translucent panel sliding over moving footage —
-it looks like a glitch.
+**کات بزن، نه فید.** فید، پنل نیمه‌شفاف رو روی فوتیج متحرک می‌کشه و شبیه باگ می‌شه.
 
-**Push in about 2×.** The face goes from 0.16 of frame height to 0.32. Without it the
-speaker just occupies more empty frame and the moment reads as a gap.
+**حدود ۲ برابر zoom کن.** صورت از ۰.۱۶ ارتفاع قاب به ۰.۳۲ می‌ره. بدون این، گوینده
+فقط توی قاب خالی‌تری می‌شینه و اون لحظه حس «جای خالی» می‌ده نه تأکید.
 
-**Move the caption down**, or it lands on their face.
+**زیرنویس رو بیار پایین**، وگرنه می‌افته روی صورتش.
 
-## What's inside
+## چی داخلشه
 
-| Script | Does |
+| اسکریپت | کارش |
 |---|---|
-| `cutsilence.py` | shortens pauses, emits a time map so existing cues can be moved with it |
-| `transcribe.py` | Whisper large-v3 → word timings → caption-sized lines |
-| `sketch.py` | deterministic hand-drawn SVG — seeded jitter, never `Math.random()` |
-| `icon.py` | inlines a Lucide icon at video-appropriate stroke weight |
-| `brand.py` | fetches official brand marks (simple-icons → svgl) |
-| `audiolevel.py` | computes `data-volume` from measured levels, then verifies the render |
+| `cutsilence.py` | مکث‌ها رو کوتاه می‌کنه و نگاشت زمانی می‌ده تا نشانه‌های موجود جابه‌جا شن |
+| `transcribe.py` | Whisper large-v3 ← تایم‌کد کلمه‌ای ← خطوط اندازهٔ زیرنویس |
+| `sketch.py` | SVG دست‌کشیدهٔ قطعی — لرزش seed-دار، هیچ‌وقت `Math.random()` |
+| `icon.py` | آیکون Lucide رو با ضخامت مناسب ویدیو inline می‌کنه |
+| `brand.py` | لوگوی رسمی برندها رو می‌گیره (simple-icons ← svgl) |
+| `audiolevel.py` | `data-volume` رو از سطح اندازه‌گیری‌شده حساب می‌کنه، بعد رندر رو تأیید می‌کنه |
 
-Deeper docs live in `references/` — [composition](references/composition.md),
-[graphics](references/graphics.md), [audio](references/audio.md).
+مستندات عمیق‌تر در `references/` — [کامپوزیشن](references/composition.md)،
+[گرافیک](references/graphics.md)، [صدا](references/audio.md).
 
-## Four Persian traps
+## چهار تلهٔ فارسی
 
-These cost real debugging time and none of them announce themselves.
+این‌ها وقت واقعی از آدم می‌گیرن و هیچ‌کدوم خودشون رو اعلام نمی‌کنن.
 
-**`<html dir="rtl">` renders a completely black video.** Preview looks perfect. Scope
-`direction: rtl` to text elements in CSS instead.
+**`<html dir="rtl">` ویدیو رو کاملاً سیاه رندر می‌کنه.** پریویو بی‌نقص به نظر می‌رسه.
+به‌جاش `direction: rtl` رو در CSS فقط روی المان‌های متنی بذار.
 
-**Negative `letter-spacing` closes the gaps between Persian words.** Latin headlines
-tolerate tight tracking; Persian does not, because the space is the only word boundary
-in a connected script. Use `letter-spacing: 0` with `word-spacing: 0.08–0.12em`.
+**`letter-spacing` منفی فاصلهٔ بین کلمات فارسی رو می‌بنده.** تیتر لاتین تراکینگ تنگ
+رو تحمل می‌کنه، فارسی نه — چون در خط متصل، فاصله تنها مرز کلمه‌ست. از
+`letter-spacing: 0` با `word-spacing: 0.08–0.12em` استفاده کن.
 
-**Persian zero «۰» is a dot.** A 300px numeral renders as a speck. Spell the number.
+**صفر فارسی «۰» یک نقطه‌ست.** عدد ۳۰۰ پیکسلی به‌صورت یک ذره رندر می‌شه. عدد رو با
+حروف بنویس.
 
-**Whisper's `small` model mangles Persian** — it turned «می‌شنویم» into «میشنبیم».
-Use large-v3, and still proofread.
+**مدل `small` ویسپر فارسی رو خراب می‌کنه** — «می‌شنویم» رو «میشنبیم» شنید. از
+large-v3 استفاده کن و باز هم بازخوانی کن.
 
-## One more thing
+## یک چیز دیگه
 
-**Measure audio levels, never guess them.** Ten sound cues were once placed at
-hand-picked volumes and nine were completely inaudible — because one file averaged
-−5 dBFS and another −30.7 dBFS. A single volume number cannot serve both.
-`audiolevel.py plan` solves for each, and `verify` proves the cue actually landed.
+**سطح صدا رو اندازه بگیر، حدس نزن.** یک بار ده تا نشانهٔ صوتی با ولوم‌های دستی گذاشته
+شد و ۹ تاشون کاملاً ناشنیدنی بودند — چون میانگین یک فایل ‎−۵ دسی‌بل بود و اون یکی
+‎−۳۰٫۷. یک عدد ولوم واحد نمی‌تونه به هر دو خدمت کنه. `audiolevel.py plan` برای هرکدوم
+حساب می‌کنه و `verify` ثابت می‌کنه که واقعاً شنیده می‌شه.
 
-## Licensing
+## لایسنس
 
-The code is MIT. Two things are deliberately **not** in this repo:
+کد MIT ـه. دو چیز عمداً داخل ریپو **نیست**:
 
-- **Fonts.** Peyda is commercial; bring your own licence, or use
-  [Vazirmatn](https://github.com/rastikerdar/vazirmatn) (SIL OFL).
-- **Brand logos.** `brand.py` fetches them on demand rather than redistributing
-  trademarks. It refuses to guess when it can't find an exact match — a wrong logo
-  that renders fine is worse than a missing one.
+- **فونت.** پیدا تجاریه؛ لایسنس خودت رو بیار، یا از
+  [وزیرمتن](https://github.com/rastikerdar/vazirmatn) استفاده کن (SIL OFL).
+- **لوگوی برندها.** `brand.py` اون‌ها رو در لحظه می‌گیره به‌جای اینکه علامت تجاری
+  توزیع کنه. وقتی تطابق دقیق پیدا نکنه حدس نمی‌زنه — لوگوی اشتباهی که درست رندر
+  می‌شه، بدتر از لوگوی نبوده‌ست.
 
-## فارسی
+</div>
 
-این یک **اسکیل برای کلاد** است که ویدیوی سلفی خام گوشی را به یک ریلز آمادهٔ اینستاگرام
-تبدیل می‌کند: کات سکوت، زیرنویس فارسی سینک با گفتار، پنل گرافیکی بالای کادر،
-اسکچ‌های دست‌کشیده، ساند افکت و موزیک زمینه.
+---
 
-نصب در Claude Code:
+## English
+
+**Turn a phone talking-head clip into a finished Persian Instagram Reel — automatically.**
+
+A [Claude](https://claude.ai) skill that packages raw selfie footage with a motion-graphics
+panel, RTL captions synced to speech, hand-drawn ink sketches, sound effects and a music bed,
+then renders it deterministically to MP4 through
+[HyperFrames](https://github.com/heygen-com/hyperframes).
 
 ```bash
-git clone https://github.com/USER/persian-reel ~/.claude/skills/persian-reel
+git clone https://github.com/aradazr/persian-reel ~/.claude/skills/persian-reel
 ```
 
-بعد کافی است به کلاد بگویید «این ویدیو رو برام ادیت کن» — اسکیل خودش فعال می‌شود.
+Then talk to Claude normally — the skill triggers on any Persian short-form video request.
 
-همه‌چیز لوکال و رایگان اجرا می‌شود؛ فقط کاتالوگ موزیک اختیاری به حساب کاربری نیاز دارد.
-فونت فارسی و لوگوی برندها عمداً داخل ریپو نیستند: فونت پیدا تجاری است و لوگوها
-علامت تجاری‌اند، پس `brand.py` آن‌ها را در لحظه دریافت می‌کند.
+Everything runs locally: Whisper large-v3 for transcription, ffmpeg for cutting, a
+deterministic sketch kit for illustration, 5,400+ offline icons. Only the optional music
+catalogue needs an account.
 
-چهار تلهٔ فارسی که در بخش انگلیسی توضیح داده شده — به‌خصوص اینکه `dir="rtl"` روی تگ
-`html` باعث می‌شود ویدیو **کاملاً سیاه** رندر شود در حالی که پریویو سالم است — مهم‌ترین
-چیزی است که این اسکیل از شما می‌گیرد.
+**Four Persian traps this skill saves you from**, none of which announce themselves:
+`<html dir="rtl">` renders a completely black video while preview looks fine; negative
+`letter-spacing` closes the gaps between Persian words; the Persian zero «۰» is a dot, so a
+300px numeral renders as a speck; and Whisper's `small` model mangles Persian badly enough
+to be unusable.
+
+Requirements, layout geometry, the full-frame beat technique, and the audio-levelling
+procedure are documented above in Persian, and in depth under
+[`references/`](references/) in English.
+
+Code is MIT. Fonts and brand logos are deliberately not bundled — Peyda is commercial, and
+`brand.py` fetches trademarks on demand rather than redistributing them.
 
 ---
 
 <div align="center">
-Built on <a href="https://github.com/heygen-com/hyperframes">HyperFrames</a> ·
+ساخته‌شده روی <a href="https://github.com/heygen-com/hyperframes">HyperFrames</a> ·
 <a href="https://github.com/lucide-icons/lucide">Lucide</a> ·
 <a href="https://github.com/simple-icons/simple-icons">simple-icons</a> ·
 <a href="https://github.com/ggerganov/whisper.cpp">whisper.cpp</a>
